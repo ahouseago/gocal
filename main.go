@@ -47,7 +47,11 @@ func monthStr(year int, month time.Month) string {
 	firstOfMonth := time.Date(date.Year(), date.Month(), 1, 0, 0, 0, 0, date.Location())
 	lastOfMonth := firstOfMonth.AddDate(0, 1, -1)
 
-	calPadding := strings.Repeat("   ", int(firstOfMonth.Weekday()-1))
+	// The number of spaces to put in front of the first day. Need to normalise
+	// to between 0 and 6 as otherwise first day of Sunday would mean we try to
+	// repeat -1 times.
+	firstDayRepeatCount := 7 + int(firstOfMonth.Weekday()-1)%7
+	calPadding := strings.Repeat("   ", firstDayRepeatCount)
 
 	datesStr := calPadding
 	for i := 1; i <= lastOfMonth.Day(); i++ {
