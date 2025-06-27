@@ -50,7 +50,7 @@ func monthStr(year int, month time.Month) string {
 	// The number of spaces to put in front of the first day. Need to normalise
 	// to between 0 and 6 as otherwise first day of Sunday would mean we try to
 	// repeat -1 times.
-	firstDayRepeatCount := 7 + int(firstOfMonth.Weekday()-1)%7
+	firstDayRepeatCount := (7 + int(firstOfMonth.Weekday()-1)) % 7
 	calPadding := strings.Repeat("   ", firstDayRepeatCount)
 
 	datesStr := calPadding
